@@ -1,7 +1,8 @@
-import data from './data'
+import {data} from './data'
 
 export function isNumeric(s) {
-    return !isNaN(s)
+    var val = parseFloat(s)
+    return !isNaN(val)
 }
 
 export function isValid(s) {
