@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as functions from './functions'
+import {isValidNumber} from './validate'
 
 export default class NumberInput extends React.Component {
     constructor(props) {
@@ -11,23 +12,8 @@ export default class NumberInput extends React.Component {
     }
     handleChange(event) {
         var value = event.target.value
-        value = value.trim()
-        var vs = value.split(' ')
 
-        var vsLen = vs.length;
-
-        // Validate the input.
-        var isValid = false
-        if (vsLen == 2) {
-            if (functions.isNumeric(vs[0]) && functions.isValid(vs[1])) {
-                isValid = true
-            }
-        }
-        else if (vsLen == 1) {
-            if (functions.isNumeric(vs[0])) {
-                isValid = true
-            }
-        }
+        var isValid = isValidNumber(value)
 
         this.setState({ isValid: isValid })
         this.setState({ value: event.target.value })
@@ -43,10 +29,13 @@ export default class NumberInput extends React.Component {
         }
 
         className = 'number-input ' + errorClass
-        console.log(className)
+
+        var vs = this.state.value.split(' ')
 
         return (
+            <div>
             <input type="text" className={className} value={this.state.value} onChange={this.handleChange.bind(this)} placeholder="Enter a number"/>
+            </div>
         )
     }
 }
