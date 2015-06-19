@@ -1,19 +1,15 @@
 import * as React from 'react'
-import {repeat} from './functions'
+import {repeat, digitsAfterDecimal, convertToRawNumber} from './functions'
 import {data} from './data'
 
 export default class RawNumber extends React.Component {
     render() {
-        var num = this.props.number
-        var ext = this.props.ext
-        var numStr = num + ''
+        if (this.props.isValid) {
+            var rawNumber = convertToRawNumber(this.props.value)
 
-        var digitsAfterDecimal = 0;
-        for (var i = 0; i < numStr.length; i++) {
-            if (numStr[i] == '.')
+            return <span>{rawNumber}</span>
+        } else {
+            return <span id="invalid-number">Invalid number.</span>
         }
-        num = num + repeat('0', data[ext] - digitsAfterDecimal)
-
-        return <span>{num}</span>
     }
 }
