@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {isValidNumber} from './validate'
 import NumberInput from './NumberInput.jsx'
 
 class App extends React.Component {
@@ -6,7 +7,7 @@ class App extends React.Component {
         return (
             <div>
                 <label>Enter number:</label>
-                <NumberInput validationTimeoutSeconds={0.2} />
+                <NumberInput validationTimeoutSeconds={0.4} validFunction={isValidNumber}/>
             </div>
         )
     }

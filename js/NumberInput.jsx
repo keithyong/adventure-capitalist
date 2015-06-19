@@ -1,6 +1,5 @@
 import * as React from 'react'
 import * as functions from './functions'
-import {isValidNumber} from './validate'
 import RawNumber from './RawNumber.jsx'
 
 export default class NumberInput extends React.Component {
@@ -10,7 +9,12 @@ export default class NumberInput extends React.Component {
             value: '',
             validity: 'valid'
         }
-        this.timeout
+        this.timeout = []
+    }
+    clearAllTimeouts() {
+        for (var i = 0; i < this.timeout.length; i++) {
+            clearTimeout(this.timeout[i])
+        }
     }
     setValidity(validity) {
         this.setState({ validity: validity })
@@ -19,15 +23,14 @@ export default class NumberInput extends React.Component {
         var value = event.target.value
         this.setState({ value: event.target.value })
 
-        var isValid = isValidNumber(value)
+        var isValid = this.props.validFunction(value)
+        this.clearAllTimeouts()
+
         if (isValid === false) {
             this.setState({ validity: 'pending' })
+            console.log('timeout: ' + this.timeout)
 
-            // Having trouble in this line of code on clearing the timeout.
-            clearTimeout(this.timeout)
-
-            this.timeout = setTimeout(function(){ this.setValidity('invalid') }.bind(this), this.props.validationTimeoutSeconds * 1000)
-            console.log(this.timeout)
+            this.timeout.push(setTimeout(function(){ this.setValidity('invalid') }.bind(this), this.props.validationTimeoutSeconds * 1000))
         } else {
             this.setValidity('valid')
         }
