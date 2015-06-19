@@ -6,7 +6,7 @@ class App extends React.Component {
         return (
             <div>
                 <label>Enter number:</label>
-                <NumberInput />
+                <NumberInput validationTimeoutSeconds={0.2} />
             </div>
         )
     }

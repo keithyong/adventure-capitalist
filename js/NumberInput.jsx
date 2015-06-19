@@ -5,14 +5,15 @@ import RawNumber from './RawNumber.jsx'
 
 export default class NumberInput extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            value: "",
-            isValid: false
-        };
+            value: '',
+            validity: 'valid'
+        }
+        this.timeout
     }
-    setIsValid(isValid) {
-        this.setState({ isValid: isValid })
+    setValidity(validity) {
+        this.setState({ validity: validity })
     }
     handleChange(event) {
         var value = event.target.value
@@ -20,21 +21,20 @@ export default class NumberInput extends React.Component {
 
         var isValid = isValidNumber(value)
         if (isValid === false) {
-            setTimeout(this.setIsValid(isValid), 2000);
+            this.setState({ validity: 'pending' })
+
+            // Having trouble in this line of code on clearing the timeout.
+            clearTimeout(this.timeout)
+
+            this.timeout = setTimeout(function(){ this.setValidity('invalid') }.bind(this), this.props.validationTimeoutSeconds * 1000)
+            console.log(this.timeout)
         } else {
-            this.setIsValid(isValid)
+            this.setValidity('valid')
         }
     }
     getClassName() {
         var className = ''
-        var errorClass = ''
-
-        // Generate error classes based on input validity.
-        if (this.state.isValid) {
-            errorClass = ''
-        } else {
-            errorClass = 'error'
-        }
+        var errorClass = this.state.validity
 
         className = 'number-input ' + errorClass
         return className
