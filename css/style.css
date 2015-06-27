@@ -1,7 +1,67 @@
+body, .validated-input {
+    color: #E4E5E8;
+    background-color: #2A2A2B;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+h1 {
+    color: #E4E5E8;
+}
+.validated-input {
+    box-sizing: border-box;
+    border: 0;
+    border-bottom: 5px solid;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    padding: 0px 10px 0px 10px;
+    transition: all  .2s ease-in;
+    margin-bottom: 15px;
+}
+.validated-input:focus {
+    outline: none;
+}
+.validated-input::-webkit-input-placeholder {
+    color: #58585A;
+}
+.validated-input:-moz-placeholder {
+    color: #58585A;
+}
+.validated-input::-moz-placeholder {
+    color: #58585A;
+}
+.validated-input:-ms-input-placeholder {
+    color: #58585A;
+}
+.validated-input:focus::-webkit-input-placeholder {
+    color: #E4E5E8;
+}
+.validated-input:focus:-moz-placeholder {
+    color: #E4E5E8;
+}
+.validated-input:focus::-moz-placeholder {
+    color: #E4E5E8;
+}
+.validated-input:focus:-ms-input-placeholder {
+    color: #E4E5E8;
+}
+
+.pending:focus {
+    color: #E4E5E8;
+}
+.valid {
+    color: #7BCC5D;
+}
 .invalid {
-    background-color: red;
-    /* transition: background-color .5s ease .5s; */
+    color: #E12C19;
 }
 .pending {
-    background-color: gray;
+    color: #58585A;
+}
+.main {
+    margin: 50px auto;
+    max-width: 500px;
+}
+.validated-input-label {
+    margin-right: 4px;
+    font-size: 1.25rem;
 }

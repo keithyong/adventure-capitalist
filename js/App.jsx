@@ -1,13 +1,28 @@
 import * as React from 'react'
-import {isValidNumber} from './validate'
-import NumberInput from './NumberInput.jsx'
+import {email, isValidNumber, password} from './validate'
+import ValidatedInput from './ValidatedInput.jsx'
 
 class App extends React.Component {
     render() {
         return (
-            <div>
-                <label>Enter number:</label>
-                <NumberInput validationTimeoutSeconds={0.4} validFunction={isValidNumber}/>
+            <div className="main">
+                <h1>React Validated Input</h1>
+                <ValidatedInput
+                  timeout={0.4}
+                  validator={email}
+                  placeholder={'Enter an email'}
+                />
+                <ValidatedInput
+                  timeout={0.4}
+                  validator={isValidNumber}
+                  placeholder={'Enter a number'}
+                />
+                <ValidatedInput
+                  timeout={0.4}
+                  validator={password}
+                  placeholder={'Enter a password'}
+                  isPassword={true}
+                />
             </div>
         )
     }

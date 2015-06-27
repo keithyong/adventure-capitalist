@@ -13,11 +13,11 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
-                loaders: ['babel-loader']
+                loader: 'babel-loader?stage=0'
             }
         ]
     },
     plugins: [
-        // new webpack.optimize.UglifyJsPlugin({minimize: true})
+        new webpack.optimize.UglifyJsPlugin({minimize: true})
     ]
 };
