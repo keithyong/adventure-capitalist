@@ -43,7 +43,7 @@ export function password(value) {
 }
 
 export function number(value) {
-    var numberRegex = /^\d+$/g
+    var numberRegex = /^\d+$/
     if (numberRegex.exec(value)) {
         return true
     } else {

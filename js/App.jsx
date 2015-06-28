@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {email, isValidNumber, password} from './validate'
+import {email, number, password} from './validate'
 import ValidatedInput from './ValidatedInput.jsx'
 
 class App extends React.Component {
@@ -14,7 +14,7 @@ class App extends React.Component {
                 />
                 <ValidatedInput
                   timeout={0.4}
-                  validator={isValidNumber}
+                  validator={number}
                   placeholder={'Enter a number'}
                 />
                 <ValidatedInput
