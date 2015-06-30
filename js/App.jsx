@@ -1,28 +1,12 @@
 import * as React from 'react'
-import {email, number, password} from './validate'
-import ValidatedInput from './ValidatedInput.jsx'
+import DemoForm from './DemoForm.jsx'
 
 class App extends React.Component {
     render() {
         return (
             <div className="main">
                 <h1>React Validated Input</h1>
-                <ValidatedInput
-                  timeout={0.4}
-                  validator={email}
-                  placeholder={'Enter an email'}
-                />
-                <ValidatedInput
-                  timeout={0.4}
-                  validator={number}
-                  placeholder={'Enter a number'}
-                />
-                <ValidatedInput
-                  timeout={0.4}
-                  validator={password}
-                  placeholder={'Enter a password'}
-                  isPassword={true}
-                />
+                <DemoForm />
             </div>
         )
     }

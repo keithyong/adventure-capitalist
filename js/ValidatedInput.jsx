@@ -21,26 +21,36 @@ export default class ValidatedInput extends React.Component {
             invalid: React.PropTypes.string.isRequired,
             pending: React.PropTypes.string.isRequired
         }),
-        isPassword: React.PropTypes.bool
+        isPassword: React.PropTypes.bool,
+        onInvalid: React.PropTypes.func,
+        onValid: React.PropTypes.func
     }
     static defaultProps = {
         timeout: 0.5,
         placeholder: 'Enter something...',
-        label: '',
+        label: null,
         classNames: {
             main: 'validated-input',
             valid: 'valid',
             invalid: 'invalid',
             pending: 'pending'
         },
-        isPassword: false
+        isPassword: false,
+        onInvalid: () => {},
+        onValid: () => {}
     }
     clearAllTimeouts() {
         for (var i = 0; i < this.timeouts.length; i++) {
             clearTimeout(this.timeouts[i])
         }
     }
-    setValidity(validity) {
+    handleValidityChange(value, validity) {
+        if (validity === this.props.classNames.valid) {
+            this.props.onValid(value)
+        } else {
+            this.props.onInvalid(value)
+        }
+
         this.setState({ validity: validity })
     }
     handleChange(event) {
@@ -54,11 +64,11 @@ export default class ValidatedInput extends React.Component {
             this.setState({ validity: this.props.classNames.pending })
             this.timeouts.push(
                 setTimeout(() => {
-                    this.setValidity(this.props.classNames.invalid)
+                    this.handleValidityChange(value, this.props.classNames.invalid)
                 }.bind(this), this.props.timeout * 1000)
             )
         } else {
-            this.setValidity(this.props.classNames.valid)
+            this.handleValidityChange(value, this.props.classNames.valid)
         }
     }
     getClassName() {
@@ -76,13 +86,21 @@ export default class ValidatedInput extends React.Component {
 
         return type
     }
+    getLabel() {
+        var label
+        if (this.props.label != null) {
+            <label>
+                className={this.props.classNames.main + '-label'}>
+                {this.props.label}
+            </label>
+        }
+
+        return label
+    }
     render() {
         return (
             <div>
-                <label
-                    className={this.props.classNames.main + '-label'}>
-                    {this.props.label}
-                </label>
+                {this.getLabel()}
                 <input type={this.getInputType()}
                     className={this.getClassName()}
                     value={this.state.value}
